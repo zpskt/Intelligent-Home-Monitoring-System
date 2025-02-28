@@ -17,13 +17,14 @@ class YOLODetector:
         image = Image.open(BytesIO(source.read()))
         logger.info(f"Image format: {image.format}, size: {image.size}")
         results = self.model.predict(source=image, imgsz=640,
-                                     project='/out', name='home-monitor', save=True, conf=0.2, iou=0.7)
-        logger.info(f"Detected: {results}")
+                                     project='./out', name='home-monitor', save=True, conf=0.2, iou=0.7)
         # 检查结果
         detected = False
         for result in results:
-            # print(result.boxes)
-            print(result.boxes.cls.shape)  # 目标数量
-            print(result.boxes.conf)
+
+            # result.boxes.conf 是一个tensor的列表，我要遍历列表只要大于0.5，那我就返回有数据检测到
+            for conf in result.boxes.conf:
+                if conf > 0.5:
+                    detected = True
         return detected
         # 检查
