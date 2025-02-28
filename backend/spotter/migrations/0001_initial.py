@@ -147,8 +147,8 @@ class Migration(migrations.Migration):
                 ('process_time', models.FloatField(verbose_name='处理时间')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='创建时间')),
                 ('is_deleted', models.BooleanField(default=False, verbose_name='是否删除')),
-                ('image', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='spotter.alarmimage', verbose_name='关联图片')),
-                ('model', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='spotter.detectionmodel', verbose_name='使用模型')),
+                ('image', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='detect.alarmimage', verbose_name='关联图片')),
+                ('model', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='detect.detectionmodel', verbose_name='使用模型')),
             ],
             options={
                 'verbose_name': '识别结果',
@@ -168,8 +168,8 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='创建时间')),
                 ('log_path', models.CharField(blank=True, max_length=255, null=True, verbose_name='日志路径')),
                 ('is_deleted', models.BooleanField(default=False, verbose_name='是否删除')),
-                ('dataset', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='spotter.dataset', verbose_name='使用数据集')),
-                ('model', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='spotter.detectionmodel', verbose_name='关联模型')),
+                ('dataset', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='detect.dataset', verbose_name='使用数据集')),
+                ('model', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='detect.detectionmodel', verbose_name='关联模型')),
             ],
             options={
                 'verbose_name': '训练任务',

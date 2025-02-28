@@ -1,27 +1,29 @@
-from django.shortcuts import render
-
 # Create your views here.
-from django.http import HttpResponse, Http404
-from django.shortcuts import render, get_object_or_404
-from django.template import loader
+import sys
+
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
+from .yolo_detector import YOLODetector
+
+sys.path.append('D:/zpskt/Intelligent-Home-Monitoring-System')
 
 
-
-# 定义一个名为 index 的视图函数，用于处理根路径的请求
 def index(request):
-   pass
+    return HttpResponse('Hello World!')
 
-# 定义一个名为 detail 的视图函数，用于处理特定问题详情页的请求
-# 参数 request 是 Django 传入的 HTTP 请求对象，question_id 是问题的唯一标识符
-def detail(request, question_id):
-    pass
 
-# 定义一个名为 results 的视图函数，用于处理特定问题结果页的请求
-# 参数 request 是 Django 传入的 HTTP 请求对象，question_id 是问题的唯一标识符
-def results(request, question_id):
-    pass
-
-# 定义一个名为 vote 的视图函数，用于处理特定问题投票页的请求
-# 参数 request 是 Django 传入的 HTTP 请求对象，question_id 是问题的唯一标识符
-def vote(request, question_id):
-    pass
+@csrf_exempt
+def detect_picture(request):
+    try:
+        if request.method == 'POST':
+            # 获取上传的文件对象
+            file = request.FILES.get('detect_picture')
+            yolo_detector = YOLODetector('detection_models/yolo11l.pt')
+            b = yolo_detector.predict(file)
+            if b:
+                return HttpResponse('检测到目标')
+            else:
+                return HttpResponse('没有检测到目标')
+    except Exception as e:
+        return HttpResponse(f'检测失败: {str(e)}', status=500)

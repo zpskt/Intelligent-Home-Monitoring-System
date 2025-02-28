@@ -37,7 +37,55 @@ INSTALLED_APPS = [  # Django 的自带应用
     'django.contrib.staticfiles',  # 管理静态文件的框架
     "spotter.apps.SpotterConfig", # 模型检测
     "appadmin.apps.AppadminConfig", # 管理员
-]
+]# settings.py
+
+LOGGING = {
+    'version': 1,  # 日志配置版本号
+    'disable_existing_loggers': False,  # 是否禁用已存在的日志记录器
+
+    # 日志格式定义
+    'formatters': {
+        'verbose': {  # 详细格式
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {  # 简单格式
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+
+    # 日志处理器定义
+    'handlers': {
+        'file': {  # 文件处理器
+            'level': 'INFO',  # 记录INFO级别及以上的日志
+            'class': 'logging.FileHandler',  # 使用文件处理
+            'filename': 'debug.log',  # 日志文件路径
+            'formatter': 'verbose',  # 使用详细格式
+        },
+        'console': {  # 控制台处理器
+            'level': 'DEBUG',  # 记录DEBUG级别及以上的日志
+            'class': 'logging.StreamHandler',  # 使用控制台输出
+            'formatter': 'verbose',  # 使用简单格式
+        },
+    },
+
+    # 日志记录器配置
+    'loggers': {
+        'django': {  # Django框架日志
+            'handlers': ['file', 'console'],  # 使用文件和控制台处理器
+            'level': 'INFO',  # 记录INFO级别及以上的日志
+            'propagate': True,  # 日志消息传递给父记录器
+        },
+        'backend.spotter': {  # spotter应用日志
+            'handlers': ['file', 'console'],  # 使用文件和控制台处理器
+            'level': 'DEBUG',  # 记录DEBUG级别及以上的日志
+            'propagate': False,  # 日志消息不传递给父记录器
+        },
+    },
+}
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
