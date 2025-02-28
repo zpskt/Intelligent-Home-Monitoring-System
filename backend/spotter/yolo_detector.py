@@ -9,7 +9,7 @@ logger = logging.getLogger('backend.spotter')
 
 class YOLODetector:
     def __init__(self, model):
-        self.model = YOLO('../detection_models/yolo11l.pt')
+        self.model = YOLO(model)
 
     def predict(self, source):
         logger.info(f"source: {source}")
@@ -17,7 +17,7 @@ class YOLODetector:
         image = Image.open(BytesIO(source.read()))
         logger.info(f"Image format: {image.format}, size: {image.size}")
         results = self.model.predict(source=image, imgsz=640,
-                                     project='./out', name='home-monitor', save=True, conf=0.2, iou=0.7)
+                                     project='./out', name='home-monitor', save=True, conf=0.2, iou=0.7,classes=0)
         # 检查结果
         detected = False
         for result in results:
