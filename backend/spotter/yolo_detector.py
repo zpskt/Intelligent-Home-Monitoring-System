@@ -26,10 +26,16 @@ class YOLODetector:
         # 将Django的InMemoryUploadedFile转换为PIL图像
         image = Image.open(BytesIO(source.read()))
         # 检查结果
+        detected, output_image_output_path = self.predict_video_frame(image)
+        return detected, output_image_output_path
+
+    def predict_video_frame(self, frame):
+        # 检查结果
+        global plotted_image
         detected = False
         output_image_output_path = -1
-        results = self.model.predict(source=image, imgsz=640,
-                                     project='./out', name='home-monitor', save=False, conf=0.2, iou=0.7,classes=0)
+        results = self.model.predict(source=frame, imgsz=640,
+                                     project='./out', name='home-monitor', save=False, conf=0.2, iou=0.7, classes=0)
         alarm_image = AlarmImage()
         # 绘制标签并保存标记后的图片
         for result in results:
@@ -41,13 +47,14 @@ class YOLODetector:
 
                     os.makedirs(parent_dir+"/out/home-monitor", exist_ok=True)
                     # 生成时间戳并格式化
-                    timestamp = datetime.now(pytz.timezone('Asia/Shanghai')).strftime("%Y%m%d_%H%M%S")                    # 拼接完整输出路径
-                    original_image_output_path = os.path.join(parent_dir, "out", "home-monitor",f"original_image_{timestamp}.jpg")
-                    image = np.array(image)
-                    cv2.imwrite(original_image_output_path, cv2.cvtColor(image, cv2.COLOR_RGB2BGR))
+                    timestamp = datetime.now(pytz.timezone('Asia/Shanghai')).strftime("%Y%m%d_%H%M%S")
+                    # 拼接完整输出路径
+                    original_image_output_path = os.path.join(parent_dir, "out", "home-monitor", f"original_image_{timestamp}.jpg")
+                    frame = np.array(frame)
+                    cv2.imwrite(original_image_output_path, cv2.cvtColor(frame, cv2.COLOR_RGB2BGR))
 
                     plotted_image = result.plot()  # 返回带有标签的PIL图像
-                    output_image_output_path = os.path.join(parent_dir, "out", "home-monitor",f"output_image_{timestamp}.jpg")
+                    output_image_output_path = os.path.join(parent_dir, "out", "home-monitor", f"output_image_{timestamp}.jpg")
                     cv2.imwrite(output_image_output_path, plotted_image)
 
                     # 新建一个model实体，然后将本次的结果赋值给model实体
@@ -59,5 +66,5 @@ class YOLODetector:
                     alarm_image.created_time = datetime.now(pytz.timezone('Asia/Shanghai'))
                     alarm_image.save()
 
-        return detected, output_image_output_path
+        return frame, plotted_image
         # 检查
