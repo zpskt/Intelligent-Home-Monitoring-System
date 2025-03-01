@@ -6,9 +6,9 @@ from django.utils import timezone
 class AlarmImage(models.Model):
     id = models.AutoField(primary_key=True, db_comment='主键ID')
     user_id = models.CharField(max_length=32, db_comment='用户ID')
-    image = models.ImageField(upload_to='alarm_image', db_comment='报警图片')
-    original_image = models.ImageField(upload_to='original_image', db_comment='原始图片')
-    label_image = models.ImageField(upload_to='label_image', db_comment='标签后的图片')
+    image = models.CharField(max_length=255, db_comment='报警图片')
+    original_image = models.CharField(max_length=255, db_comment='原始图片')
+    label_image = models.CharField(max_length=255, db_comment='标签后的图片')
     upload_time = models.DateTimeField(auto_now_add=True, db_comment='上传时间')
     is_delete = models.BooleanField(default=False, db_comment='是否删除')
     alarm_time = models.DateTimeField(auto_now_add=True, db_comment='报警时间')

@@ -5,6 +5,7 @@ import sys
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
+from .models import AlarmImage
 from .yolo_detector import YOLODetector
 import os
 
@@ -29,18 +30,24 @@ def detect_picture(request):
         current_dir = os.path.dirname(__file__)
 
         yolo_detector = YOLODetector(current_dir + '/detection_models/yolo11l.pt')
-        detected, alarm_image_id = yolo_detector.predict(file)
-        logger.info(detected)
-        logger.info(alarm_image_id)
+        detected, output_image_output_path = yolo_detector.predict(file)
+        # 根据id去models中查询对应的图片
+
         if detected:
+            if output_image_output_path == -1:
+                logger.error('找不到图片路径')
             data = {
+                'image_url': output_image_output_path
+            }
+            res = {
                 'message': '检测到目标',
-                'status': 'success'
+                'status': 'success',
+                'data': data
             }
-            return JsonResponse(data)
+            return JsonResponse(res)
         else:
-            data = {
-                'message': '没有检测到目标',
-                'status': 'success'
+            res = {
+                'message': '没有',
+                'status': 'success',
             }
-            return JsonResponse(data)
+            return JsonResponse(res)
