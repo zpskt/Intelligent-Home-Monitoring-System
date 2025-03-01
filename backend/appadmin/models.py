@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 class SysDict(models.Model):
     value = models.CharField(max_length=100, null=True, blank=True, db_comment='数据值')
@@ -9,10 +10,10 @@ class SysDict(models.Model):
     remark = models.CharField(max_length=255, null=True, blank=True, db_comment='备注信息')
     create_id = models.CharField(max_length=20, null=True, blank=True, db_comment='创建人ID')
     create_name = models.CharField(max_length=20, null=True, blank=True, db_comment='创建人名称')
-    create_time = models.DateTimeField(null=True, blank=True, db_comment='创建时间')
+    create_time = models.DateTimeField(auto_now_add=True,null=True, blank=True, db_comment='创建时间')
     modify_id = models.CharField(max_length=20, null=True, blank=True, db_comment='修改人ID')
     modify_name = models.CharField(max_length=20, null=True, blank=True, db_comment='修改人名称')
-    modify_time = models.DateTimeField(null=True, blank=True, db_comment='修改时间')
+    modify_time = models.DateTimeField(auto_now_add=True,null=True, blank=True, db_comment='修改时间')
 
     class Meta:
         db_table = 'sys_dict'
@@ -38,9 +39,9 @@ class SysMenu(models.Model):
     status = models.SmallIntegerField(default=1, db_comment='菜单状态')
     remark = models.CharField(max_length=255, null=True, blank=True, db_comment='备注信息')
     create_by = models.BigIntegerField(null=True, blank=True, db_comment='创建者')
-    create_date = models.DateTimeField(null=True, blank=True, db_comment='创建时间')
+    create_date = models.DateTimeField(auto_now_add=True,null=True, blank=True, db_comment='创建时间')
     update_by = models.BigIntegerField(null=True, blank=True, db_comment='更新者')
-    update_date = models.DateTimeField(null=True, blank=True, db_comment='更新时间')
+    update_date = models.DateTimeField(auto_now_add=True,null=True, blank=True, db_comment='更新时间')
 
     class Meta:
         db_table = 'sys_menu'
@@ -51,9 +52,9 @@ class SysRole(models.Model):
     order_num = models.SmallIntegerField(null=True, blank=True, db_comment='排序号')
     remark = models.CharField(max_length=255, null=True, blank=True, db_comment='备注信息')
     create_by = models.BigIntegerField(null=True, blank=True, db_comment='创建者')
-    create_date = models.DateTimeField(null=True, blank=True, db_comment='创建时间')
+    create_date = models.DateTimeField(auto_now_add=True,null=True, blank=True, db_comment='创建时间')
     update_by = models.BigIntegerField(null=True, blank=True, db_comment='更新者')
-    update_date = models.DateTimeField(null=True, blank=True, db_comment='更新时间')
+    update_date = models.DateTimeField(auto_now_add=True,null=True, blank=True, db_comment='更新时间')
 
     class Meta:
         db_table = 'sys_role'
@@ -81,14 +82,14 @@ class SysUser(models.Model):
     phone = models.CharField(max_length=15, null=True, blank=True, db_comment='手机')
     user_type = models.SmallIntegerField(choices=USER_TYPE_CHOICES, null=True, blank=True, db_comment='用户类型')
     photo = models.CharField(max_length=100, null=True, blank=True, db_comment='用户头像')
-    last_login_time = models.DateTimeField(null=True, blank=True, db_comment='最近登录时间')
+    last_login_time = models.DateTimeField(auto_now_add=True,null=True, blank=True, db_comment='最近登录时间')
     last_login_ip = models.CharField(max_length=20, null=True, blank=True, db_comment='最近登录IP')
     remark = models.CharField(max_length=255, null=True, blank=True, db_comment='备注信息')
     status = models.SmallIntegerField(default=1, db_comment='状态')
     create_by = models.BigIntegerField(null=True, blank=True, db_comment='创建者')
-    create_date = models.DateTimeField(null=True, blank=True, db_comment='创建时间')
+    create_date = models.DateTimeField(auto_now_add=True,null=True, blank=True, db_comment='创建时间')
     update_by = models.BigIntegerField(null=True, blank=True, db_comment='更新者')
-    update_date = models.DateTimeField(null=True, blank=True, db_comment='更新时间')
+    update_date = models.DateTimeField(auto_now_add=True,null=True, blank=True, db_comment='更新时间')
 
     class Meta:
         db_table = 'sys_user'

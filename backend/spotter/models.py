@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 # 定义报警图片类
@@ -132,8 +133,6 @@ class TrainingTask(models.Model):
     )
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255, db_comment="任务名称")
-    model = models.ForeignKey(DetectionModel, on_delete=models.CASCADE, db_comment="关联模型")
-    dataset = models.ForeignKey(Dataset, on_delete=models.CASCADE, db_comment="使用数据集")
     status = models.CharField(max_length=32, choices=STATUS_CHOICES, default='pending', db_comment="任务状态")
     start_time = models.DateTimeField(null=True, blank=True, db_comment="开始时间")
     end_time = models.DateTimeField(null=True, blank=True, db_comment="结束时间")
@@ -148,8 +147,6 @@ class TrainingTask(models.Model):
 
 class DetectionResult(models.Model):
     id = models.AutoField(primary_key=True)
-    image = models.ForeignKey(AlarmImage, on_delete=models.CASCADE, db_comment="关联图片")
-    model = models.ForeignKey(DetectionModel, on_delete=models.CASCADE, db_comment="使用模型")
     detected_objects = models.JSONField(db_comment="检测到的物体")
     confidence = models.FloatField(db_comment="总体置信度")
     is_deleted = models.BooleanField(default=False, db_comment="是否删除")

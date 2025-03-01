@@ -125,9 +125,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',  # 指定数据库引擎mysql
         "NAME": "intelligent_home_monitor",
         "USER": "root",
-        "PASSWORD": "zhangpeng1211zP!",
-        "HOST": "8.146.205.137",
-        "PORT": "3306",
+        "PASSWORD": "1223769987",
+        "HOST": "9.220.107.43",
+        "PORT": "6306",
     }
 }
 
@@ -154,13 +154,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'  # 设置时区为北京时间
+
+USE_TZ = False  # 启用时区支持
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
 
 # 静态文件（CSS、JavaScript、图像）
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
