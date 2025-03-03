@@ -74,7 +74,7 @@ import com.admin.common.annotation.Excel;
 import com.admin.common.annotation.Excel.ColumnType;
 import com.admin.common.annotation.Excel.Type;
 import com.admin.common.annotation.Excels;
-import com.admin.common.config.adminConfig;
+import com.admin.common.config.AdminConfig;
 import com.admin.common.core.domain.AjaxResult;
 import com.admin.common.core.text.Convert;
 import com.admin.common.exception.UtilException;
@@ -1459,7 +1459,7 @@ public class ExcelUtil<T>
      */
     public String getAbsoluteFile(String filename)
     {
-        String downloadPath = adminConfig.getDownloadPath() + filename;
+        String downloadPath = AdminConfig.getDownloadPath() + filename;
         File desc = new File(downloadPath);
         if (!desc.getParentFile().exists())
         {

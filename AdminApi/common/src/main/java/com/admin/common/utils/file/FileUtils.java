@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import com.admin.common.config.adminConfig;
+import com.admin.common.config.AdminConfig;
 import com.admin.common.utils.DateUtils;
 import com.admin.common.utils.StringUtils;
 import com.admin.common.utils.uuid.IdUtils;
@@ -73,7 +73,7 @@ public class FileUtils
      */
     public static String writeImportBytes(byte[] data) throws IOException
     {
-        return writeBytes(data, adminConfig.getImportPath());
+        return writeBytes(data, AdminConfig.getImportPath());
     }
 
     /**

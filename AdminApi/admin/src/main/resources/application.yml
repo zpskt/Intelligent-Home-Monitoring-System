@@ -1,3 +1,4 @@
+
 # 项目相关配置
 admin:
   # 名称
@@ -7,7 +8,7 @@ admin:
   # 版权年份
   copyrightYear: 2025
   # 文件路径 示例（ Windows配置D:/admin/uploadPath，Linux配置 /home/admin/uploadPath）
-  profile: D:/admin/uploadPath
+  profile: /Users/zhangpeng/Desktop/zpskt/Intelligent-Home-Monitoring-System/AdminApi/uploadPath
   # 获取ip地址开关
   addressEnabled: false
   # 验证码类型 math 数字计算 char 字符验证
@@ -15,10 +16,6 @@ admin:
 
 # 开发环境配置
 server:
-  application:
-    name: auto-pair-clip-box
-  profiles:
-    active: @spring.profiles.active@
   # 服务器的HTTP端口，默认为8080
   port: 8080
   servlet:
@@ -40,6 +37,8 @@ logging:
   level:
     com.admin: debug
     org.springframework: warn
+  file:
+    name: ./logs/admin-api.log
 
 # 用户配置
 user:
@@ -55,8 +54,10 @@ spring:
   messages:
     # 国际化资源文件路径
     basename: i18n/messages
+  application:
+    name: /home-monitor
   profiles:
-    active: druid
+    active: local
   # 文件上传
   servlet:
     multipart:
