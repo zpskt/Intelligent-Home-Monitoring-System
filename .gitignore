@@ -1,7 +1,7 @@
 *.idea
-*.application-local.yml
 *.logs
-*.node_modules
+AdminApi/admin/src/main/resources/application-local.yml
+AdminUI/node_modules/*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
