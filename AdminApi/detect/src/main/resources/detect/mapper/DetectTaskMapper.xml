@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.admin.detect.mapper.DetectTaskMapper">
+
+    <resultMap id="BaseResultMap" type="com.admin.detect.domain.DetectTask">
+            <id property="id" column="id" />
+            <result property="taskName" column="task_name" />
+            <result property="isValid" column="is_valid" />
+            <result property="isRun" column="is_run" />
+            <result property="remark" column="remark" />
+            <result property="taskType" column="task_type" />
+            <result property="taskParam" column="task_param" />
+            <result property="createTime" column="create_time" />
+            <result property="createUser" column="create_user" />
+            <result property="updateTime" column="update_time" />
+            <result property="updateUser" column="update_user" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,task_name,is_valid,is_run,remark,task_type,
+        task_param,create_time,create_user,update_time,update_user
+    </sql>
+</mapper>
